@@ -37,7 +37,7 @@
                     $stmt_insert->bindParam(':NAME', $FULLNAME);
                     $stmt_insert->bindParam(':EMAIL', $EMAIL);
                     $stmt_insert->bindParam(':PASSWORD', $PASSWORD);
-                    $stmt_insert->bindParam(':CREATE_BY', $FULLNAME);
+                    $stmt_insert->bindParam(':CREATE_BY', $EMAIL);
                     $CHECK_INSERT = $stmt_insert->execute();
 
                     if($CHECK_INSERT) {

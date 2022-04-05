@@ -49,7 +49,7 @@ if(isset($_POST['btn_profile'])) {
                     $stmt->bindParam(':NAME', $NAME);
                     $stmt->bindParam(':IMG', $CHG_FILES);
                     $stmt->bindParam(':ABOUT_ME', $ABOUT_ME);
-                    $stmt->bindParam(':UPDATE_BY', $_SESSION['email']);
+                    $stmt->bindParam(':UPDATE_BY', $EMAIL);
                     $stmt->bindParam(':UPDATE_DATE', $timer);
                     $stmt->bindParam(':EMAIL', $EMAIL);
                     $UPDATE_PROFILE_WITH_IMG = $stmt->execute();
@@ -76,7 +76,7 @@ if(isset($_POST['btn_profile'])) {
         $stmt = $connect->prepare($sql);
         $stmt->bindParam(':NAME', $NAME);
         $stmt->bindParam(':ABOUT_ME', $ABOUT_ME);
-        $stmt->bindParam(':UPDATE_BY', $NAME);
+        $stmt->bindParam(':UPDATE_BY', $EMAIL);
         $stmt->bindParam(':UPDATE_DATE', $timer);
         $stmt->bindParam(':EMAIL', $EMAIL);
         $UPDATE_PROFILE_WITHOUT_IMG = $stmt->execute();
