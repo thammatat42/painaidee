@@ -1,12 +1,10 @@
 <?php
-require_once '../../service/connect.php'; 
-unset($_SESSION['fullname']);
-unset($_SESSION['email']);
+require_once('../authen.php'); 
 
 if(isset($_GET['travel_search'])) {
-  $search = $_GET['travel_search'];
+    $search = $_GET['travel_search'];
 } else {
-  $search = '';
+    $search = '';
 }
 
 
@@ -51,7 +49,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body class="hold-transition layout-top-nav layout-navbar-fixed">
     <div class="wrapper">
-        <?php  include_once('../includes/sidebar.php') ?>
+        <?php  include_once('../includes/sidebar_login.php') ?>
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container">
@@ -74,36 +72,36 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <p class="text-sm text-uppercase text-gray mb-0">เเนะนำสถานที่ท่องเที่ยว</p></a></div>
               </nav>
 
-              <!-- Destinations -->
-              <section class="pt-5">
-                <div class="container">
-                  <h1>จุดหมายปลายทางสถานที่ท่องเที่ยว</h1>
-                  <p class="mb-0">รวมสถานที่ท่องเที่ยวต่างๆที่มีผู้คนเดินทางไปเยี่ยมชมมากที่สุดในเเต่ละจังหวัด</p>
-                </div>
-                <div class="swiper destinations-slider swiper-padding">
-                  <div class="swiper-wrapper">
-                      <?php foreach($result as $key => $row) { ?>
-                          <div class="swiper-slide h-auto"><a class="destination d-flex align-items-end bg-center bg-cover" href="../post/?pages=<?php echo $row['ID'];?>" style="background: url(../../assets/upload/<?php echo $row['IMG'];?>)">
-                              <div class="destination-inner w-100 text-center text-white index-forward has-transition">
-                                  <p class="small text-uppercase mb-0"><?php echo $row['amphures'];?></p>
-                                  <h2 class="h3 mb-4"><?php echo $row['provinces'];?></h2>
-                                  <div class="btn btn-primary w-100 destination-btn text-white">เยี่ยมชม</div>
-                              </div></a>
-                          </div>
-                      <?php } ?>
-                  </div>
-                  <div class="swiper-button-prev swiper-custom-nav text-uppercase letter-spacing-0">
-                      <svg class="svg-icon svg-icon me-1">
-                      <use xlink:href="#arrow-left-1"> </use>
-                      </svg><span class="text-sm">Prev</span>
-                  </div>
-                  <div class="swiper-button-next swiper-custom-nav text-uppercase letter-spacing-0"><span class="text-sm">Next</span>
-                      <svg class="svg-icon svg-icon ms-1">
-                      <use xlink:href="#arrow-right-1"> </use>
-                      </svg>
-                  </div>
-                </div>
-              </section>
+                <!-- Destinations -->
+                <section class="pt-5">
+                    <div class="container">
+                        <h1>จุดหมายปลายทางสถานที่ท่องเที่ยว</h1>
+                        <p class="mb-0">รวมสถานที่ท่องเที่ยวต่างๆที่มีผู้คนเดินทางไปเยี่ยมชมมากที่สุดในเเต่ละจังหวัด</p>
+                    </div>
+                    <div class="swiper destinations-slider swiper-padding">
+                        <div class="swiper-wrapper">
+                            <?php foreach($result as $key => $row) { ?>
+                                <div class="swiper-slide h-auto"><a class="destination d-flex align-items-end bg-center bg-cover" href="../post/?pages=<?php echo $row['ID'];?>" style="background: url(../../assets/upload/<?php echo $row['IMG'];?>)">
+                                    <div class="destination-inner w-100 text-center text-white index-forward has-transition">
+                                        <p class="small text-uppercase mb-0"><?php echo $row['amphures'];?></p>
+                                        <h2 class="h3 mb-4"><?php echo $row['provinces'];?></h2>
+                                        <div class="btn btn-primary w-100 destination-btn text-white">เยี่ยมชม</div>
+                                    </div></a>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <div class="swiper-button-prev swiper-custom-nav text-uppercase letter-spacing-0">
+                            <svg class="svg-icon svg-icon me-1">
+                            <use xlink:href="#arrow-left-1"> </use>
+                            </svg><span class="text-sm">Prev</span>
+                        </div>
+                        <div class="swiper-button-next swiper-custom-nav text-uppercase letter-spacing-0"><span class="text-sm">Next</span>
+                            <svg class="svg-icon svg-icon ms-1">
+                            <use xlink:href="#arrow-right-1"> </use>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
         <?php include_once('../includes/footer.php') ?>
@@ -209,7 +207,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 icon: 'success',
                 confirmButtonText: 'ตกลง',
             }).then((result) => {
-                location.href = '../../pages/index.php'
+                location.reload()
             })
         }).fail(function(resp) {
             const check_log = jQuery.parseJSON( resp.responseText );

@@ -1,0 +1,36 @@
+<?php
+function LDAP_LOGIN($username,$password,$connect)
+{
+	set_time_limit (5);
+    //ob_start();    
+    
+    $stmt = $connect->prepare("SELECT * FROM tb_user WHERE EMAIL = :EMAIL AND STATUS_CHG = 0");
+    $stmt->bindParam(':EMAIL', $username);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+    
+    if( !empty($result) && md5($password) == $result->PASSWORD ){
+
+        $_SESSION['name'] = $result->NAME;
+        $_SESSION['type'] = $result->TYPE;
+
+        $timer = date("Y-m-d H:i:s");
+        
+        $sql = "UPDATE tb_user SET LOGIN_DATE = :timer WHERE EMAIL = :EMAIL AND STATUS_CHG = 0";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindParam(':timer', $timer);
+        $stmt->bindParam(':EMAIL', $username);
+        $stmt->execute();
+        
+        return true;
+
+    } else {
+        http_response_code(401);
+        echo json_encode(array('status' => false, 'message' => 'เกิดข้อผิดพลาด: ไม่มีข้อมูลในระบบ..ทำการสมัครสมาชิกใหม่อีกครั้ง'));
+
+        return false;
+    }
+}
+
+?>

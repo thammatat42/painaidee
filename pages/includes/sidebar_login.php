@@ -5,9 +5,7 @@
         $name = $array[$key + 1];
         return $name === $data ? 'active' : '' ;
     }
-    // echo '<pre>';
-    // print_r($_SESSION);
-    // die();
+
 ?>
 
 <style>
@@ -97,9 +95,6 @@
     transition: all 0.5s;
   }
 
-  img {
-    margin-top: -0.8rem !important;
-  }
 
 
   .btn {
@@ -158,73 +153,11 @@
  
 </style>
 
-<!-- Modal Login -->
-<form id="form_login">
-  <div class="modal fade" id="modal-login">
-      <div class="modal-dialog modal-md">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h4 class="text-glow" class="modal-title"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_modal_1">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="card-body">
-                  <div class="form-group col-sm-12">
-                    <div class="alert alert-danger" role="alert" id="alert" hidden>
-                      *ไม่สามารถเข้าสู่ระบบได้: รหัสผ่านหมดอายุ
-                    </div>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text px-3"><i class="fas fa-user"></i></div>
-                      </div>
-                      <input type="text" class="form-control" name="username" placeholder="อีเมลล์">
-                    </div>
-                  </div>
-                  <div class="form-group col-sm-12">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text px-3"><i class="fas fa-lock"></i></div>
-                      </div>
-                      <input type="password" class="form-control" name="password" placeholder="รหัสผ่าน">
-                    </div>
-                  </div>
-                  <!-- <div class="form-group"> -->
-                    <!-- <div class="row"> -->
-                      <!-- <div class="col-md-8 col-mb-4"> -->
-                      <div class="d-flex justify-content-between">
-                        <div class="icheck-primary">
-                          <input type="checkbox" name="remember" id="remember" value="<?php if(isset($_COOKIE["remember"])) { echo $_COOKIE["remember"]; } ?>">
-                          <label for="remember">
-                            ให้ฉันอยู่ในระบบเสมอ
-                          </label>
-                          
-                        </div>
-                        <p>
-                          <a style="color: #909090;" href="../recover/" >ลืมรหัสผ่านไหม?</a>
-                          /
-                          <a style="color: #909090;" href="../register/" >สมัครสมาชิก</a>
-                        </p>
-                      </div>
-                      <!-- <div class="col-md-4 col-mb-2">
-                        <a href="recover.php" style="color: red">Change Password</a>
-                      </div> -->
-                    <!-- </div> -->
-                  <!-- </div> -->
-              </div>
-              
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="close_modal_2">ยกเลิก</button>
-                  <button type="submit" class="btn btn-success" name="btn_login" id="btn_login">เข้าสู่ระบบ</button>
-              </div>
-          </div>
-      </div>
-  </div>
-</form>
+
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-      <a href="../dashboard/" class="navbar-brand">
+      <a href="../blog/" class="navbar-brand">
         <img src="../../assets/images/painaidee2.png" alt="Location Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span2 class="brand-text font-weight-light">ไปไหนดี</span2>
       </a>
@@ -242,26 +175,27 @@
           </div>
         </form> -->
         <form class="nosubmit">
-          <input class="nosubmit" type="search" placeholder="ค้นหาข้อมูลที่นี่..">
+          <input class="nosubmit" type="search" name="travel_search" id="travel_search" placeholder="ค้นหาข้อมูลที่นี่..">
         </form>
 
         <!-- Left navbar links -->
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <!-- <a href="./" class="nav-link">จัดการ</a> -->
-          </li>
+        <?php if($_SESSION['type'] == 'admin'){ ?>
+          <!-- <li class="nav-item">
+              <a href="./" class="nav-link"><i class="fas fa-wrench"></i>&nbsp;จัดการ</a>
+          </li> -->
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">Contact</a>
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-wrench"></i>&nbsp;จัดการ</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Some action </a></li>
+              <li><a href="../manage/manage_travel.php" class="dropdown-item">ท่องเที่ยว</a></li>
               <li><a href="#" class="dropdown-item">Some other action</a></li>
 
-              <li class="dropdown-divider"></li>
+              <!-- <li class="dropdown-divider"></li> -->
 
-              <li class="dropdown-submenu dropdown-hover">
+              <!-- <li class="dropdown-submenu dropdown-hover">
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
@@ -279,26 +213,25 @@
                   <li><a href="#" class="dropdown-item">level 2</a></li>
                   <li><a href="#" class="dropdown-item">level 2</a></li>
                 </ul>
-              </li>
+              </li> -->
             </ul>
-          </li> -->
+          </li>
+          <?php } ?>
         </ul>
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
 
-          
-          <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" data-toggle="modal" data-target="#modal-login">
-              <i class="far fa-user"></i>
-              เข้าสู่ระบบ
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../register/" role="button">
-              <i class="fas fa-user-plus"></i>
-              สมัครสมาชิก
-            </a>
-          </li>
-          
+            <li class="nav-item">
+                <a class="nav-link" href="../profile" role="button">
+                    <i class="fas fa-user"></i>
+                    <?php echo $_SESSION['name'];?>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../logout.php" role="button">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    ออกจากระบบ
+                </a>
+            </li>
         </ul>
       </div>
 
@@ -336,15 +269,15 @@
           </a>
         </li> -->
         <!-- <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" data-toggle="modal" data-target="#modal-login">
-            <i class="far fa-user"></i>
-            เข้าสู่ระบบ
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+            <i class="fas fa-user"></i>
+            Make
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-user-plus"></i>
-            สมัครสมาชิก
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">| &nbsp;
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            Logout
           </a>
         </li> -->
       <!-- </ul> -->
@@ -357,4 +290,6 @@
     <span class="spinner"></span>
   </div>
 </div>
+
+<script src="../../assets/js/lord-icon-2.1.0.js"></script>
 

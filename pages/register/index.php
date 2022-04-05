@@ -1,5 +1,6 @@
 <?php
-require_once('../../service/connect_mssql.php');
+require_once('../../service/connect.php');
+
 
 ?>
 <!DOCTYPE html>
@@ -43,14 +44,14 @@ require_once('../../service/connect_mssql.php');
                 <div class="register-box" style="width: 500px">
                     <div class="card card-outline card-primary">
                         <div class="card-header text-center">
-                        <a href="../../index2.html" class="h1"><b>ไปไหน</b>ดี</a>
+                        <a href="#" class="h1"><b>ไปไหน</b>ดี</a>
                         </div>
                         <div class="card-body">
                             <p class="login-box-msg"><i class="fas fa-user-plus"></i>&nbsp;สร้างบัญชีของคุณได้เลย ฟรีนะ!</p>
 
-                            <form action="../../index.html" method="post">
+                            <form id="form_Register" enctype="multipart/form-data">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="ชื่อ">
+                                    <input type="text" class="form-control" name="fullname" id="fullname" placeholder="ชื่อ" value="<?php if(isset($_SESSION['fullname'])) { echo $_SESSION['fullname']; unset($_SESSION['fullname']); }?>" required>
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-user"></span>
@@ -58,7 +59,7 @@ require_once('../../service/connect_mssql.php');
                                         </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="email" class="form-control" placeholder="อีเมลล์">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="อีเมลล์" value="<?php if(isset($_SESSION['email'])) { echo $_SESSION['email']; unset($_SESSION['email']); }?>" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-envelope"></span>
@@ -66,7 +67,7 @@ require_once('../../service/connect_mssql.php');
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="password" class="form-control" placeholder="รหัสผ่าน">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" minlength="8" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -74,7 +75,7 @@ require_once('../../service/connect_mssql.php');
                                 </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="password" class="form-control" placeholder="ยืนยันรหัสผ่าน">
+                                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" minlength="8" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -87,7 +88,7 @@ require_once('../../service/connect_mssql.php');
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="icheck-primary">
-                                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                            <input type="checkbox" id="agreeTerms" name="agreeTerms" value="1" required>
                                             <label for="agreeTerms">
                                                 ฉันได้ยอมรับข้อกำหนดเเละ <a href="#">เงื่อนไขทั้งหมด</a>
                                             </label>
@@ -96,8 +97,8 @@ require_once('../../service/connect_mssql.php');
                                     
                                 </div>
                                 <div class="input-group mb-3 justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block" style="width: 100px">สมัครสมาชิก</button>
-                                    </div>
+                                    <button type="submit" class="btn btn-success btn-block" name="btn_register" id="btn_register" style="width: 100px">สมัครสมาชิก</button>
+                                </div>
                             </form>
 
                             <!-- Login Online -->
@@ -132,57 +133,50 @@ require_once('../../service/connect_mssql.php');
     <script src="../../plugins/toastr/toastr.min.js"></script>
 
     <script>
-      $("#overlay").fadeIn(300);
+    $("#overlay").fadeIn(300);
 
-      $("#modal-login").modal({
-        show: false,
-        backdrop: 'static'
-      });
+    $("#modal-login").modal({
+    show: false,
+    backdrop: 'static'
+    });
 
-      $(document).on('click', '#close_modal_1', function(){
-        location.reload()
-          
-      });
+    $(document).on('click', '#close_modal_1', function(){
+    location.reload()
+        
+    });
 
-      $(document).on('click', '#close_modal_2', function(){
-        location.reload()
-      });
+    $(document).on('click', '#close_modal_2', function(){
+    location.reload()
+    });
 
-      $(document).on('click', '#btn_login', function(){
-        $('#form_login').validate({
-          rules: {
-            username: {
-              required: true,
-            },
-            password: {
-              required: true,
-              minlength: 3
-            },
-          },
-          messages: {
-            username: {
-              required: "กรุณาใส่อีเมลล์",
-            },
-            password: {
-              required: "กรุณาใส่รหัสผ่าน",
-              minlength: "รหัสผ่านของคุณไม่ผ่านเงื่อนไขตัวอักษร 3 ตัวขึ้นไป"
-            },
-          },
-          errorElement: 'span',
-          errorPlacement: function (error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
-          },
-          highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-          },
-          unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-          }
-        });
-      });
+    $("#form_Register").submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "../../service/api/register.php",
+            data: $(this).serialize(),
+        }).done(function(resp) {
+            Swal.fire({
+                text: resp.message,
+                icon: 'success',
+                confirmButtonText: 'ตกลง',
+            }).then((result) => {
+                location.href = '../dashboard/'
+            })
+        }).fail(function(resp) {
+            const check_log = jQuery.parseJSON( resp.responseText );
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด..',
+                text: check_log.message,
+                footer: 'กรุณาตรวจสอบใหม่อีกครั้ง!!'
+            }).then((result) => {
+                location.reload()
+            })
+        })
+    });
 
-      $("#overlay").fadeOut(300);
+    $("#overlay").fadeOut(300);
     </script>
 </body>
 </html>

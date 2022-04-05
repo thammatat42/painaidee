@@ -20,19 +20,19 @@ class Database {
      * @var string|null
      * @return PDO
      */
-    // private $host = "54.179.74.126";
-    private $host = "THSTTCWHS01";
-    private $dbname = "FALCON";
-    // private $username = "baadmin";
-    // private $password = "P@ssw0rd1234%";
-    private $username = "baadmin";
-    private $password = "ba@Min122018";
+    
+    private $host = "localhost";
+    private $dbname = "painaidee";
+    private $username = "root";
+    private $password = "";
     private $conn = null;
+
     public function connect() {
         try{
             /** PHP PDO */
-            $this->conn = new PDO('sqlsrv:Server='.$this->host.'; 
-                                Database='.$this->dbname.';', 
+            $this->conn = new PDO('mysql:host='.$this->host.'; 
+                                dbname='.$this->dbname.'; 
+                                charset=utf8', 
                                 $this->username, 
                                 $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -50,6 +50,3 @@ class Database {
  */
 $Database = new Database();
 $connect = $Database->connect();
-
-
-?>

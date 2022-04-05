@@ -1,5 +1,5 @@
 <?php
-require_once('../../service/connect_mssql.php');
+require_once('../authen.php');
 
 ?>
 <!DOCTYPE html>
