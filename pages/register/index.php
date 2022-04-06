@@ -149,6 +149,40 @@ require_once('../../service/connect.php');
     location.reload()
     });
 
+    $(document).on('click', '#btn_login', function(){
+        $('#form_login').validate({
+          rules: {
+            username: {
+              required: true,
+            },
+            password: {
+              required: true,
+              minlength: 8
+            },
+          },
+          messages: {
+            username: {
+              required: "กรุณาใส่อีเมลล์",
+            },
+            password: {
+              required: "กรุณาใส่รหัสผ่าน",
+              minlength: "รหัสผ่านของคุณไม่ผ่านเงื่อนไขตัวอักษร 8 ตัวขึ้นไป"
+            },
+          },
+          errorElement: 'span',
+          errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+          },
+          highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+          }
+        });
+    });
+
     $("#form_Register").submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -162,6 +196,34 @@ require_once('../../service/connect.php');
                 confirmButtonText: 'ตกลง',
             }).then((result) => {
                 location.href = '../dashboard/'
+            })
+        }).fail(function(resp) {
+            const check_log = jQuery.parseJSON( resp.responseText );
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด..',
+                text: check_log.message,
+                footer: 'กรุณาตรวจสอบใหม่อีกครั้ง!!'
+            }).then((result) => {
+                location.reload()
+            })
+        })
+    });
+
+    $("#form_login").submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "../../service/auth/login.php",
+            data: $(this).serialize(),
+        }).done(function(resp) {
+            Swal.fire({
+                text: resp.message,
+                icon: 'success',
+                confirmButtonText: 'ตกลง',
+            }).then((result) => {
+                location.href = '../../pages/index.php'
             })
         }).fail(function(resp) {
             const check_log = jQuery.parseJSON( resp.responseText );
