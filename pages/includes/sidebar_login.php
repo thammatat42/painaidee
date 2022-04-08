@@ -194,7 +194,7 @@
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-wrench"></i>&nbsp;จัดการ</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
               <li><a href="../manage/manage_travel.php" class="dropdown-item">ท่องเที่ยว</a></li>
-              <li><a href="#" class="dropdown-item">Some other action</a></li>
+              <!-- <li><a href="#" class="dropdown-item">Some other action</a></li> -->
 
               <!-- <li class="dropdown-divider"></li> -->
 
