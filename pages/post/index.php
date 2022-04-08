@@ -1,5 +1,11 @@
 <?php
-require_once '../../service/connect.php'; 
+require_once '../../service/connect.php';
+
+if(isset($_GET['travel_search'])) {
+    $search = $_GET['travel_search'];
+  } else {
+    $search = '';
+  }
 
 if(isset($_GET['pages'])) {
     $ID = $_GET['pages'];
@@ -227,10 +233,10 @@ $result_img = $stmt_img->fetchAll(PDO::FETCH_ASSOC);
                             <p class="text-sm text-muted mb-4">สามารถดูเเต่ละโพสใหม่ล่าสุดได้ที่นี่เลย..</p>
                             <ul class="list-unstyled">
                                 <?php foreach($result_lastest as $key_lastest => $row_lastest) { ?>
-                                    <li class="d-flex mb-1"><a href="../post/?pages=<?php echo $row_lastest['ID'];?>"><img src="../../assets/upload/<?php echo $row_lastest['IMG'];?>" alt="Travel Images" width="80"></a>
+                                    <li class="d-flex mb-1"><a href="../post/index.php?pages=<?php echo $row_lastest['ID'];?>"><img src="../../assets/upload/<?php echo $row_lastest['IMG'];?>" alt="Travel Images" width="80"></a>
                                         <div class="media-body ms-3">
                                             <p class="small text-primary text-uppercase mb-0"><?php echo $row_lastest['CREATE_DATE'];?></p>
-                                            <h6 class="mb-1"><a class="reset-anchor" href="../post/?pages=<?php echo $row_lastest['ID'];?>"><?php echo $row_lastest['TOPIC'];?></a></h6>
+                                            <h6 class="mb-1"><a class="reset-anchor" href="../post/index.php?pages=<?php echo $row_lastest['ID'];?>"><?php echo $row_lastest['TOPIC'];?></a></h6>
                                             <p class="small text-muted"><?php echo $row_lastest['ABOUT'];?></p>
                                         </div>
                                     </li>

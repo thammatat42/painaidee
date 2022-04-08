@@ -22,7 +22,7 @@
         }
 
         $sql = "INSERT INTO tb_comment (NAME,EMAIL,IMG, MESSAGE, OWNER, COMMENT_BY, COMMENT_DATE, STATUS_CHG)
-                VALUES (:NAME, :EMAIL, :MESSAGE, :IMG, :OWNER, :COMMENT_BY, :COMMENT_DATE, :STATUS_CHG)";
+                VALUES (:NAME, :EMAIL, :IMG, :MESSAGE, :OWNER, :COMMENT_BY, :COMMENT_DATE, :STATUS_CHG)";
         $stmt= $connect->prepare($sql);
         $stmt->bindParam(':NAME', $NAME);
         $stmt->bindParam(':EMAIL', $EMAIL);

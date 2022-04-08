@@ -176,6 +176,9 @@
         </form> -->
         <form class="nosubmit">
           <input class="nosubmit" type="search" name="travel_search" id="travel_search" placeholder="ค้นหาข้อมูลที่นี่..">
+          <?php if(isset($_GET['pages'])) {?>
+            <input type="hidden" name="pages" value="<?php if(isset($_GET['pages'])) { echo $_GET['pages']; }?>">
+          <?php } ?>
         </form>
 
         <!-- Left navbar links -->
