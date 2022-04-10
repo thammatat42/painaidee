@@ -120,6 +120,7 @@ require_once('../authen.php');
                 tableData.push([    
                     ++index,
                     `<img src="../../assets/upload/${item.IMG}" style="width: 100px; height: 100px;" class="product-image" alt="Travel Image">`,
+                    item.TOPIC,
                     item.provinces,
                     item.amphures,
                     `<div class="btn-group" role="group">
@@ -143,6 +144,7 @@ require_once('../authen.php');
                 columns: [
                     { title: "ลำดับ" , className: "align-middle"},
                     { title: "รูปภาพ" , className: "align-middle"},
+                    { title: "สถานที่ท่องเที่ยว" , className: "align-middle"},
                     { title: "จังหวัด" , className: "align-middle"},
                     { title: "อำเภอ" , className: "align-middle"},
                     { title: "จัดการ", className: "align-middle"}

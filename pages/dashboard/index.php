@@ -13,7 +13,7 @@ if(isset($_GET['travel_search'])) {
 $stmt = $connect->prepare("SELECT a.*,b.name_th as amphures ,c.name_th as provinces FROM `tb_travel` as a
 INNER JOIN amphures as b on a.AMPHURES_ID = b.id
 INNER JOIN provinces as c on a.PROVINCE_ID = c.id 
-WHERE b.name_th LIKE '%$search%' OR c.name_th LIKE '%$search%' AND a.STATUS_CHG = 0");
+WHERE b.name_th LIKE '%$search%' OR c.name_th LIKE '%$search%' OR TOPIC LIKE '%$search%' AND a.STATUS_CHG = 0");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -85,7 +85,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                       <?php foreach($result as $key => $row) { ?>
                           <div class="swiper-slide h-auto"><a class="destination d-flex align-items-end bg-center bg-cover" href="../post/?pages=<?php echo $row['ID'];?>" style="background: url(../../assets/upload/<?php echo $row['IMG'];?>)">
                               <div class="destination-inner w-100 text-center text-white index-forward has-transition">
-                                  <p class="small text-uppercase mb-0"><?php echo $row['amphures'];?></p>
+                                  <p class="small text-uppercase mb-0"><?php echo $row['TOPIC'];?></p>
                                   <h2 class="h3 mb-4"><?php echo $row['provinces'];?></h2>
                                   <div class="btn btn-primary w-100 destination-btn text-white">เยี่ยมชม</div>
                               </div></a>
